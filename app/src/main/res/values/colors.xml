@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="medics_green">#199A8E</color>
+    <color name="medics_logo">#199A8E</color>
+
+
 </resources>
