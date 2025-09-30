@@ -7,7 +7,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class HomeTabsAdapter extends FragmentStateAdapter {
-    private final String[] tabTitles = {"Doctor", "Appointments", "Hospital", "records"};
+    private final String[] tabTitles = {"Doctor", "Appointments", "Hospital", "Records"};
 
     public HomeTabsAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
@@ -24,7 +24,7 @@ public class HomeTabsAdapter extends FragmentStateAdapter {
             case 2:
                 return new HospitalFragment(); // 👈 تحتاج لإنشاء هذا الكلاس
             case 3:
-                return new recordsFragment(); // 👈 تحتاج لإنشاء هذا الكلاس
+                return new RecordsFragment(); // 👈 تحتاج لإنشاء هذا الكلاس
             default:
                 return new DoctorFragment();
         }

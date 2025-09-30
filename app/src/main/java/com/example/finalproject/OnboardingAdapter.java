@@ -8,23 +8,23 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 public class OnboardingAdapter extends FragmentStateAdapter {
 
 
-    private final int[] layouts;
+//    private final int[] layouts;
 
     // الدالة البانية الصحيحة
     public OnboardingAdapter(@NonNull FragmentActivity fragmentActivity, int[] layouts) {
         super(fragmentActivity);
-        this.layouts = layouts;
+//        this.layouts = layouts;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
         if (position == 0) {
-            return new Onboarding1();
+            return new onboarding_page1();
         } else if (position == 1) {
-            return new Onboarding2();
+            return new onboarding_page2();
         } else if (position == 2) {
-            return new Onboarding3();
+            return new onboarding_page3();
         } else {
             // 🚨 هذا هو الجزء الحاسم! يجب أن يُنشئ كلاس الشريحة الرابعة
             return new Onboarding4();
@@ -34,6 +34,5 @@ public class OnboardingAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return layouts.length;
-    }
-}
+        return 4; // 👈 نعلن بشكل ثابت عن وجود 4 شرائح
+    }}

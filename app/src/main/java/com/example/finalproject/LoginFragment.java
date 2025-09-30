@@ -1,12 +1,16 @@
 package com.example.finalproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button; // استيراد Button
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,12 +19,10 @@ import android.view.ViewGroup;
  */
 public class LoginFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    // (المتغيرات ودوال newInstance و onCreate تبقى كما هي)
+    // ...
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -28,15 +30,6 @@ public class LoginFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LoginFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static LoginFragment newInstance(String param1, String param2) {
         LoginFragment fragment = new LoginFragment();
         Bundle args = new Bundle();
@@ -54,11 +47,67 @@ public class LoginFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    // ...
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false);
+    }
+
+    // **********************************************
+    // 1. إضافة دالة onViewCreated للتعامل مع أزرار الواجهة
+    // **********************************************
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // هنا نفترض أن زر تسجيل الدخول (Login) له ID هو 'login_button'
+        Button loginButton = view.findViewById(R.id.login_button); // تأكد من استخدام الـ ID الصحيح
+
+        if (loginButton != null) {
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // *** 2. هنا يجب أن تضع منطق التحقق من تسجيل الدخول الناجح (مثل الاتصال بالسيرفر) ***
+                    // ... (التحقق من صحة الإيميل وكلمة المرور)
+
+                    // إذا كان تسجيل الدخول ناجحاً:
+                    goToHomeScreen();
+                }
+            });
+        }
+
+        // ** ملاحظة: كرر نفس العملية لأزرار 'Sign in with Google' و 'Sign in with Apple' **
+        // مثال:
+        // Button googleSignInButton = view.findViewById(R.id.google_signin_button);
+        // if (googleSignInButton != null) {
+        //     googleSignInButton.setOnClickListener(v -> {
+        //         // منطق الدخول عبر جوجل
+        //         goToHomeScreen();
+        //     });
+        // }
+    }
+
+    // **********************************************
+    // 3. الدالة المسؤولة عن الانتقال إلى واجهة الهوم وحذف الشاشات السابقة
+    // **********************************************
+    private void goToHomeScreen() {
+        // التحقق من أن الـ Fragment مرتبط بـ Activity
+        if (getActivity() != null) {
+
+            // إنشاء Intent للانتقال إلى HomeActivity
+            Intent intent = new Intent(getActivity(), HomeActivity.class);
+
+            // إضافة علامات (Flags) لمسح جميع الأنشطة السابقة (مهم جداً لأمان الدخول)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            // بدء الـ Activity الجديد
+            startActivity(intent);
+
+            // إنهاء الـ Activity الحامل لهذا الـ Fragment (مثل AuthActivity أو LoginActivity)
+            getActivity().finish();
+        }
     }
 }
