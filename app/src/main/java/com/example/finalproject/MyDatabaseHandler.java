@@ -6,8 +6,7 @@ import android.os.Looper;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-// هذا الكود يمكن وضعه في أي Activity أو Fragment
-// حيث تحتاج لتنفيذ عملية قاعدة بيانات
+
 public class MyDatabaseHandler {
     // ExecutorService هو تجمع للخيوط لتنفيذ المهام
     // Executors.newSingleThreadExecutor() يضمن أن مهمة واحدة فقط ستعمل في أي وقت

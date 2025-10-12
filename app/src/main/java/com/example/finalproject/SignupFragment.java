@@ -19,7 +19,7 @@ import android.widget.Button; // تأكد من استيراد Button إذا كا
  */
 public class SignupFragment extends Fragment {
 
-    // (باقي المتغيرات ودوال newInstance و onCreate تبقى كما هي)
+
     // ...
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -56,9 +56,7 @@ public class SignupFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_signup, container, false);
     }
 
-    // **********************************************
-    // 1. إضافة دالة onViewCreated للوصول إلى عناصر الواجهة (Views)
-    // **********************************************
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -70,33 +68,23 @@ public class SignupFragment extends Fragment {
             signupButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // *** 2. هنا يجب أن تضع منطق التحقق من التسجيل الناجح ***
-                    // ... (مثلاً، التحقق من الإيميل وكلمة المرور وتخزين البيانات)
 
-                    // إذا كان التسجيل ناجحاً:
                     goToHomeScreen();
                 }
             });
         }
     }
 
-    // **********************************************
-    // 3. الدالة المسؤولة عن الانتقال إلى واجهة الهوم وحذف الشاشات السابقة
-    // **********************************************
+
     private void goToHomeScreen() {
-        // التحقق من أن الـ Fragment مرتبط بـ Activity قبل محاولة الانتقال
         if (getActivity() != null) {
 
-            // إنشاء Intent للانتقال إلى HomeActivity
             Intent intent = new Intent(getActivity(), HomeActivity.class);
 
-            // إضافة علامات (Flags) لمسح جميع الأنشطة السابقة
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-            // بدء الـ Activity الجديد
             startActivity(intent);
 
-            // إنهاء الـ Activity الحامل لهذا الـ Fragment (مثل AuthActivity أو LoginActivity)
             getActivity().finish();
         }
     }

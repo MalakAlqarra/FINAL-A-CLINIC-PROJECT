@@ -16,16 +16,13 @@ public class Onboarding4 extends Fragment {
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
-            // ربط الـ Layout الخاص بالشريحة الرابعة
-            // 🚨 تأكدي من أن اسم الملف هو R.layout.onboarding_page4
+
             View view = inflater.inflate(R.layout.onboarding_page4, container, false);
 
-            // 1. ربط الأزرار الموجودة داخل هذه الشريحة
-            // 🚨 يجب أن يتطابق الـ ID مع ما هو موجود في ملف XML
+
             Button loginButton = view.findViewById(R.id.login_button);
             Button signUpButton = view.findViewById(R.id.signup_button);
 
-            // 2. إضافة مُستمع النقر لكل زر
             loginButton.setOnClickListener(v -> {
                 navigateToAuthWelcomeScreen();
             });
@@ -37,13 +34,10 @@ public class Onboarding4 extends Fragment {
             return view;
         }
 
-        // دالة الانتقال (موضوعة داخل الـ Fragment لسهولة الاستدعاء)
         private void navigateToAuthWelcomeScreen() {
-            // الانتقال إلى شاشة AuthWelcomeActivity
             Intent intent = new Intent(getActivity(), AuthWelcomeActivity.class);
             startActivity(intent);
 
-            // إغلاق الـ Activity الحاضنة (OnboardingActivity)
             if (getActivity() != null) {
                 getActivity().finish();
             }

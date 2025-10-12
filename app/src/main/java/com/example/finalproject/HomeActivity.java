@@ -26,51 +26,56 @@ public class HomeActivity extends AppCompatActivity {
         viewPagerTabs = findViewById(R.id.view_pager_home_tabs);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        // ------------------ إعداد Tabs ------------------
         HomeTabsAdapter tabsAdapter = new HomeTabsAdapter(getSupportFragmentManager(), getLifecycle());
         viewPagerTabs.setAdapter(tabsAdapter);
 
-        String[] titles = {"Doctor", "Appointments", "Hospital", "Records"};
+        String[] titles = {"Doctor", "Appointments", "Hospital", "Records", "Profile"};
         new TabLayoutMediator(tabLayout, viewPagerTabs,
                 (tab, position) -> tab.setText(titles[position])
         ).attach();
 
-        // ------------------ إعداد BottomNavigation ------------------
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
-            int id = item.getItemId();
 
-            if (id == R.id.nav_home) {
 
-                Intent intent = new Intent(this, HomeActivity.class);
-                startActivity(intent);
 
-                // لا نحتاج لتبديل Fragment، فقط نفتح الـ Activity
-                // لكن يجب أن نوقف التبديل إلى أي Fragment في هذه الحالة
-                return true;
-
-            } else if (id == R.id.nav_doctors) {
-                selectedFragment = new BtnDoctorsFragment();
-            } else if (id == R.id.nav_schedule) {
-                selectedFragment = new BtnAppointmentsFragment();
-            } else if (id == R.id.nav_profile) {
-                selectedFragment = new BtnProfileFragment();
-            }
-
-            if (selectedFragment != null) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.home_fragment_container, selectedFragment)
-                        .commit();
-            }
-
-            return true; // مهم جداً
-        });
+//        bottomNavigationView.setOnItemSelectedListener(item -> {
+//            Fragment selectedFragment = null;
+//            int id = item.getItemId();
+//
+//            if (id == R.id.nav_home) {
+//
+//                Intent intent = new Intent(this, HomeActivity.class);
+//                startActivity(intent);
+//
+//                // لا نحتاج لتبديل Fragment، فقط نفتح الـ Activity
+//                // لكن يجب أن نوقف التبديل إلى أي Fragment في هذه الحالة
+//                return true;
+//
+//            } else if (id == R.id.nav_doctors) {
+//                selectedFragment = new BtnDoctorsFragment();
+//            } else if (id == R.id.nav_schedule) {
+//                selectedFragment = new BtnAppointmentsFragment();
+//            } else if (id == R.id.nav_profile) {
+//                selectedFragment = new BtnProfileFragment();
+//            }
+//
+//            if (selectedFragment != null) {
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.home_fragment_container, selectedFragment)
+//                        .commit();
+//            }
+//
+//            return true; // مهم جداً
+//        });
 
 
 
    //      ------------------ عرض أول Fragment عند البداية ------------------
-        if (savedInstanceState == null) {
-            bottomNavigationView.setSelectedItemId(R.id.nav_home);
-        }
+//        if (savedInstanceState == null) {
+//            bottomNavigationView.setSelectedItemId(R.id.nav_home);
+//        }
+
+
+
+
     }
 }

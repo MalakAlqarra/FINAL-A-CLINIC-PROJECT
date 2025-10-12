@@ -56,57 +56,36 @@ public class LoginFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
-    // **********************************************
-    // 1. إضافة دالة onViewCreated للتعامل مع أزرار الواجهة
-    // **********************************************
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // هنا نفترض أن زر تسجيل الدخول (Login) له ID هو 'login_button'
-        Button loginButton = view.findViewById(R.id.login_button); // تأكد من استخدام الـ ID الصحيح
-
+        Button loginButton = view.findViewById(R.id.login_button);
         if (loginButton != null) {
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // *** 2. هنا يجب أن تضع منطق التحقق من تسجيل الدخول الناجح (مثل الاتصال بالسيرفر) ***
-                    // ... (التحقق من صحة الإيميل وكلمة المرور)
 
-                    // إذا كان تسجيل الدخول ناجحاً:
+
+
                     goToHomeScreen();
                 }
             });
         }
 
-        // ** ملاحظة: كرر نفس العملية لأزرار 'Sign in with Google' و 'Sign in with Apple' **
-        // مثال:
-        // Button googleSignInButton = view.findViewById(R.id.google_signin_button);
-        // if (googleSignInButton != null) {
-        //     googleSignInButton.setOnClickListener(v -> {
-        //         // منطق الدخول عبر جوجل
-        //         goToHomeScreen();
-        //     });
-        // }
     }
 
-    // **********************************************
-    // 3. الدالة المسؤولة عن الانتقال إلى واجهة الهوم وحذف الشاشات السابقة
-    // **********************************************
+
     private void goToHomeScreen() {
-        // التحقق من أن الـ Fragment مرتبط بـ Activity
         if (getActivity() != null) {
 
-            // إنشاء Intent للانتقال إلى HomeActivity
-            Intent intent = new Intent(getActivity(), HomeActivity.class);
+            Intent intent = new Intent(getActivity(), HomeFragment.class);
 
-            // إضافة علامات (Flags) لمسح جميع الأنشطة السابقة (مهم جداً لأمان الدخول)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-            // بدء الـ Activity الجديد
             startActivity(intent);
 
-            // إنهاء الـ Activity الحامل لهذا الـ Fragment (مثل AuthActivity أو LoginActivity)
             getActivity().finish();
         }
     }

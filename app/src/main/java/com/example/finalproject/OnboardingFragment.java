@@ -29,15 +29,13 @@ public class OnboardingFragment extends AppCompatActivity {
         skipTextView = findViewById(R.id.skip_text);
         nextButton = findViewById(R.id.next_button);
 
-        // مصفوفة تحتوي على كل ملفات الـ Layout
         int[] layouts = new int[]{
                 R.layout.onboarding_page1,
                 R.layout.onboarding_page2,
                 R.layout.onboarding_page3,
-                R.layout.onboarding_page4 // نضيف هنا الصفحة الأخيرة
+                R.layout.onboarding_page4
         };
 
-        // تهيئة الـ Adapter وربطه بالـ ViewPager
         OnboardingAdapter adapter = new OnboardingAdapter(this, layouts);
         viewPager.setAdapter(adapter);
 
@@ -46,12 +44,10 @@ public class OnboardingFragment extends AppCompatActivity {
         skipTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // الانتقال إلى شاشة تسجيل الدخول
-                // يمكنك إنشاء Activity لهذا الغرض
+
             }
         });
 
-        // منطق زر Next للتنقل بين الصفحات
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

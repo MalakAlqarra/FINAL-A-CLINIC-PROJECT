@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 public class onboarding_page1 extends Fragment {
 
     public onboarding_page1() {
-        // مطلوب للبناء الافتراضي
     }
 
     @Nullable

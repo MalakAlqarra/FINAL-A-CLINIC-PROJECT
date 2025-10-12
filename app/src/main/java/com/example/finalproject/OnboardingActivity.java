@@ -61,7 +61,6 @@ public class OnboardingActivity extends AppCompatActivity {
     }
 
     private void navigateToAuthScreen() {
-        // يجب الانتقال إلى شاشة AuthWelcomeActivity التي تسبق AuthTabsActivity
         Intent intent = new Intent(OnboardingActivity.this, AuthWelcomeActivity.class); // 👈 تم التصحيح
         startActivity(intent);
         finish();

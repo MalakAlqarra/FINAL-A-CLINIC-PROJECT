@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
 
-                // لا نحتاج لتبديل Fragment، فقط نفتح الـ Activity
-                // لكن يجب أن نوقف التبديل إلى أي Fragment في هذه الحالة
                 return true;
 
             } else if (id == R.id.nav_doctors) {
@@ -47,13 +45,12 @@ public class MainActivity extends AppCompatActivity {
                         .commit();
             }
 
-            return true; // مهم جداً
+            return true;
         });
 
 
 
 
- //أول ما يفتح التطبيق يجيب الهوم
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new BtnHomeFragment())

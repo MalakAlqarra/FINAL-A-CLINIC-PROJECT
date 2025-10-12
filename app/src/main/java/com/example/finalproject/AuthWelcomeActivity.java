@@ -1,5 +1,4 @@
-// AuthWelcomeActivity.java
-package com.example.finalproject; // 👈 تأكد من هذا السطر!
+package com.example.finalproject;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,9 +29,9 @@ public class AuthWelcomeActivity extends AppCompatActivity {
     }
 
     private void navigateToAuthScreen(boolean isDoctor) {
-        Intent intent = new Intent(AuthWelcomeActivity.this, AuthTabsActivity.class);
+        Intent intent = new Intent(AuthWelcomeActivity.this, HomeActivity.class);
         intent.putExtra("is_doctor", isDoctor);
         startActivity(intent);
-        finish(); // يجب أن تكون مضافة!
+        finish();
     }
 }

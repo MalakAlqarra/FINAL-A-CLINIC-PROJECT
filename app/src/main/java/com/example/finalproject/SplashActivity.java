@@ -17,10 +17,10 @@ public class SplashActivity extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                // بعد 3 ثواني، انتقل إلى شاشة Onboarding
+
                 Intent intent = new Intent(SplashActivity.this, OnboardingActivity.class);
                 startActivity(intent);
-                finish(); // أغلق شاشة Splash لكي لا يمكن العودة إليها
+                finish();
             }
         }, 3000); // 3000 milliseconds = 3 seconds
     }

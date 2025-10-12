@@ -1,8 +1,12 @@
 package com.example.finalproject;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,18 +53,15 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
         holder.btnBook.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
 
-            // أولاً: اختيار التاريخ
             DatePickerDialog datePicker = new DatePickerDialog(context,
                     (view, year, month, dayOfMonth) -> {
                         String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
 
-                        // ثانياً: اختيار الوقت
                         TimePickerDialog timePicker = new TimePickerDialog(context,
                                 (timeView, hourOfDay, minute) -> {
                                     String selectedTime = hourOfDay + ":" +
                                             String.format("%02d", minute);
 
-                                    // إنشاء الموعد
                                     AppointmentModel appointment = new AppointmentModel(
                                             doctor.getName(),
                                             doctor.getSpecialty(),
@@ -68,11 +69,19 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
                                             selectedTime
                                     );
 
-                                    // حفظ الموعد
                                     com.example.finalproject.AppointmentStorage.addAppointment(appointment);
 
+
+                                    Calendar appointmentCalendar = Calendar.getInstance();
+                                    appointmentCalendar.set(year, month, dayOfMonth, hourOfDay, minute, 0);
+                                    long appointmentTimeMillis = appointmentCalendar.getTimeInMillis();
+
+                                    scheduleAppointmentReminder(context, appointmentTimeMillis, doctor.getName());
+
+                                    // ----------------------------------------------------
+
                                     Toast.makeText(context, "تم الحجز مع " +
-                                            doctor.getName(), Toast.LENGTH_SHORT).show();
+                                            doctor.getName() + " وتم جدولة تذكير.", Toast.LENGTH_SHORT).show();
 
                                 }, calendar.get(Calendar.HOUR_OF_DAY),
                                 calendar.get(Calendar.MINUTE),
@@ -102,6 +111,48 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
             txtDays = itemView.findViewById(R.id.txtDays);
             txtHours = itemView.findViewById(R.id.txtHours);
             btnBook = itemView.findViewById(R.id.btnBook);
+        }
+    }
+
+
+    private void scheduleAppointmentReminder(Context context, long appointmentTimeMillis, String doctorName) {
+
+        // وقت التذكير: ساعة واحدة (3,600,000 مللي ثانية) قبل الموعد
+        long oneHourBefore = appointmentTimeMillis - (60 * 60 * 1000);
+
+        // **التأكد من أننا لم نتجاوز وقت التذكير بعد**
+        if (oneHourBefore <= System.currentTimeMillis()) {
+            return;
+        }
+
+        Intent intent = new Intent(context, NotificationReceiver.class);
+        intent.putExtra("APPOINTMENT_TITLE", doctorName);
+
+        int uniqueRequestCode = (int) (appointmentTimeMillis / 1000);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                uniqueRequestCode,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            // setExactAndAllowWhileIdle
+            alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    oneHourBefore,
+                    pendingIntent
+            );
+        } else {
+            // setExact للأجهزة القديمة
+            alarmManager.setExact(
+                    AlarmManager.RTC_WAKEUP,
+                    oneHourBefore,
+                    pendingIntent
+            );
         }
     }
 }

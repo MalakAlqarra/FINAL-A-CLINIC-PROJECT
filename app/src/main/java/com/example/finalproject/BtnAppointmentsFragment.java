@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,20 +14,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class AppointmentsFragment extends Fragment {
+public class BtnAppointmentsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private AppointmentAdapter adapter;
     private List<AppointmentModel> appointmentList;
 
-    public AppointmentsFragment() {}
+    public BtnAppointmentsFragment() {}
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_appointments, container, false);
+        View view = inflater.inflate(R.layout.fragment_btn_appointments, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerAppointments);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

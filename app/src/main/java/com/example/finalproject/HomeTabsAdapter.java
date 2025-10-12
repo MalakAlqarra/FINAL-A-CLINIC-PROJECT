@@ -7,7 +7,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class HomeTabsAdapter extends FragmentStateAdapter {
-    private final String[] tabTitles = {"Doctor", "Appointments", "Hospital", "Records"};
+    private final String[] tabTitles = {"Doctor", "Appointments", "Hospital", "Records","Profile"};
 
     public HomeTabsAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
@@ -18,13 +18,15 @@ public class HomeTabsAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new DoctorFragment(); // 👈 تحتاج لإنشاء هذا الكلاس
+                return new DoctorFragment();
             case 1:
-                return new AppointmentsFragment(); // 👈 تحتاج لإنشاء هذا الكلاس
+                return new AppointmentsFragment();
             case 2:
-                return new HospitalFragment(); // 👈 تحتاج لإنشاء هذا الكلاس
+                return new HospitalFragment();
             case 3:
-                return new RecordsFragment(); // 👈 تحتاج لإنشاء هذا الكلاس
+                return new RecordsFragment();
+            case 4:
+                return new BtnProfileFragment() ;
             default:
                 return new DoctorFragment();
         }
@@ -32,11 +34,9 @@ public class HomeTabsAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return tabTitles.length; // سيُرجع 4
+        return tabTitles.length;
     }
 
-    // يمكن إضافة دالة للحصول على العنوان إذا كنت تستخدم FragmentPagerAdapter
-    // لكن في ViewPager2، يتم ربط العناوين في الـ Activity مباشرة
 
 
 }
